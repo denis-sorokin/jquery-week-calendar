@@ -133,6 +133,7 @@
     }
 
     $(document).ready(function() {
+      $('#calendar').datepicker($.datepicker.regional[ "en-GB" ]);
       var $calendar = $('#calendar').weekCalendar({
         timeslotsPerHour: 4,
         scrollToHourMillis : 0,
@@ -162,12 +163,11 @@
           });
 
           if (!isFree) {
-            alert('looks like you tried to add an event on busy part !');
+            console.log('looks like you tried to add an event on busy part !');
             $(calendar).weekCalendar('removeEvent',calEvent.id);
             return false;
           }
-
-          alert('You\'ve added a new event. You would capture this event, add the logic for creating a new event with your own fields, data and whatever backend persistence you require.');
+          console.log('You\'ve added a new event. You would capture this event, add the logic for creating a new event with your own fields, data and whatever backend persistence you require.');
 
           calEvent.id = calEvent.userId +'_'+ calEvent.start.getTime();
           $(calendar).weekCalendar('updateFreeBusy', {
@@ -176,6 +176,7 @@
             end: calEvent.end,
             free:false
           });
+          $('#calendar').datepicker( "setDate", new Date(calEvent.start.getTime()) );
         },
         data: function(start, end, callback) {
           var dataSource = $('#data_source').val();
@@ -203,11 +204,11 @@
         headerSeparator: ' ',
         useShortDayNames: true,
         // I18N
-        firstDayOfWeek: $.datepicker.regional['fr'].firstDay,
-        shortDays: $.datepicker.regional['fr'].dayNamesShort,
-        longDays: $.datepicker.regional['fr'].dayNames,
-        shortMonths: $.datepicker.regional['fr'].monthNamesShort,
-        longMonths: $.datepicker.regional['fr'].monthNames,
+        firstDayOfWeek: $.datepicker.regional['en-GB'].firstDay,
+        shortDays: $.datepicker.regional['en-GB'].dayNamesShort,
+        longDays: $.datepicker.regional['en-GB'].dayNames,
+        shortMonths: $.datepicker.regional['en-GB'].monthNamesShort,
+        longMonths: $.datepicker.regional['en-GB'].monthNames,
         dateFormat: 'd F y'
       });
 
